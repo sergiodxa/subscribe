@@ -6,7 +6,7 @@ const hasOffMethod = object => typeof object.off === "function";
 const hasRemoveEventListenerMethod = object =>
   typeof object.removeEventListener === "function";
 
-export function removeListener(object, event, callback) {
+function removeListener(object, event, callback) {
   if (hasOffMethod(object)) {
     return object.off(event, callback);
   }
@@ -15,7 +15,7 @@ export function removeListener(object, event, callback) {
   }
 }
 
-export function addListener(object, event, callback) {
+function addListener(object, event, callback) {
   if (hasOnMethod(object)) {
     return object.on(event, callback);
   }
@@ -24,7 +24,7 @@ export function addListener(object, event, callback) {
   }
 }
 
-export function subscribe(object, event, callback) {
+function subscribe(object, event, callback) {
   const unsubscribe = addListener(object, event, callback);
   return () => {
     if (subscribe && typeof unsubscribe === "function") {
@@ -34,4 +34,4 @@ export function subscribe(object, event, callback) {
   };
 }
 
-export default subscribe;
+module.exports = subscribe;
